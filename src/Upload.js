@@ -13,7 +13,9 @@ class Upload extends React.Component {
 
 
   state={
-upLoading:null
+upLoading:null,
+message:'',
+gettingInput:''
 
 
   }
@@ -30,12 +32,17 @@ upLoading:null
   fileUpload=()=>{
     const fd = new FormData();
     
-    fd.append('scriptFile', this.state.upLoading)
+    fd.append('scriptFile', this.state.upLoading,this.state.upLoading.name)
 
-    axios.post('https://jsonplaceholder.typicode.com/posts',fd)
-    .then(res=>{
-      console.log(res);
+    axios.post('https://jsonplaceholder.typicode.com/users',fd,{
+      onUploadProgress:ProgressEvent=>{
+        this.setState({message:'file uploaded succesfully'+ Math.round(ProgressEvent.loaded/ ProgressEvent.total * 100)+'%'} )
+      }
     })
+    .then(res=>{
+      console.log(res)
+    })
+    
   
 
   }
@@ -55,6 +62,8 @@ upLoading:null
        <input type="file" onChange={this.onChange}  accept=".jmx"/>
     
        <button onClick={this.fileUpload} >upload</button>
+       <h1 style={{color:'green'}} >{this.state.message}</h1>
+       <h1 style={{color:'green'}} >{this.state.gettingInput}</h1>
     
       
     
