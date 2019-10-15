@@ -6,12 +6,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+
+
 class Upload extends React.Component {
 
 
 
   state={
 upLoading:null
+
 
   }
 
@@ -27,9 +30,9 @@ upLoading:null
   fileUpload=()=>{
     const fd = new FormData();
     
-    fd.append('scriptFile', this.state.upLoading, this.state.upLoading.name)
+    fd.append('scriptFile', this.state.upLoading)
 
-  axios.post('https://jsonplaceholder.typicode.com/posts',fd)
+    axios.post('https://jsonplaceholder.typicode.com/posts',fd)
     .then(res=>{
       console.log(res);
     })
@@ -43,7 +46,7 @@ upLoading:null
   render(){
 
     return (
-      <div >
+      <div className="Upload" >
      
 
      <div  >
